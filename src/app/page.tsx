@@ -1,7 +1,8 @@
 import React from "react";
+import HolyGrid from "@/components/HolyGrid/HolyGrid";
 
 const page: React.FC = () => {
-  return <div>page</div>;
+  return <HolyGrid />;
 };
 
 export default page;
