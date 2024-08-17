@@ -1,5 +1,5 @@
 import React from "react";
-import HolyGrid from "@/components/HolyGrid/HolyGrid";
+import HolyGrid from "@/containers/HolyGrid/HolyGrid";
 
 const page: React.FC = () => {
   return <HolyGrid />;
