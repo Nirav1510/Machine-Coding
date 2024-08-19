@@ -21,6 +21,13 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/containers/JsCafe/TypeAheadSearch/TypeAheadSearch.jsx",
+    "src/components/JsCafe/TypeAheadSearch/useFetchPromise.js"
+  ],
   "exclude": ["node_modules"]
 }
