@@ -41,13 +41,13 @@ const InfiniteScrolling: React.FC = () => {
     });
   }, []);
 
-  const renderItem = useCallback(({ title }: any, key: any, ref?: any) => {
-    return (
-      <div key={key} ref={ref}>
-        {title}
-      </div>
-    );
-  }, []);
+  // const renderItem = useCallback(({ title }: any, key: any, ref?: any) => {
+  //   return (
+  //     <div key={key} ref={ref}>
+  //       {title}
+  //     </div>
+  //   );
+  // }, []);
 
   return (
     <div className='flex flex-col justify-center items-center'>
@@ -62,7 +62,7 @@ const InfiniteScrolling: React.FC = () => {
         query={query}
         listData={data}
         getData={getData}
-        renderListItem={renderItem}
+        renderListItem={null}
       />
     </div>
   );
