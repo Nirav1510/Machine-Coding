@@ -7,7 +7,6 @@ const InfiniteScroll = (props: any) => {
 
   const pageRef = useRef(1);
   const observer = useRef<any>(null);
-
   const [loading, setLoading] = useState(false);
 
   // const renderList = useCallback(() => {
