@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
+
+import ListBox from "../../../components/JsCafe/TypeAheadSearch/ListBox";
 import SearchBox from "../../../components/JsCafe/TypeAheadSearch/SearchBox";
-import ListBox from "./ListBox";
 
 import "./TypeAheadSearch.css";
 
