@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import FileList from "@/components/DEShaw/FileExplorer/FileList";
 
