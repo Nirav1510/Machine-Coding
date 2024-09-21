@@ -9,13 +9,12 @@ const InfiniteScroll = (props: any) => {
   const observer = useRef<any>(null);
   const [loading, setLoading] = useState(false);
 
-  // const renderList = useCallback(() => {
-  //   return listData.map((item: any, index: number) => {
-  //     if (index === listData.length - 1)
-  //       renderListItem(item, index, lastElementObserver);
-  //     return renderListItem(item, index, null);
-  //   });
-  // }, []);
+  const fetchData = useCallback(() => {
+    setLoading(true);
+    getData(query, pageRef.current).finally(() => {
+      setLoading(false);
+    });
+  }, [query]);
 
   const lastElementObserver = (node: any) => {
     if (loading) return;
@@ -31,13 +30,6 @@ const InfiniteScroll = (props: any) => {
     });
     if (node) observer.current.observe(node);
   };
-
-  const fetchData = useCallback(() => {
-    setLoading(true);
-    getData(query, pageRef.current).finally(() => {
-      setLoading(false);
-    });
-  }, [query]);
 
   const renderList = () => {
     return listData.map((item: any, index: number) => {
