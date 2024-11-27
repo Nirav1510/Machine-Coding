@@ -1,10 +1,10 @@
 import React from "react";
-import ProgressBar from "@/containers/Practice/RatingStar";
+import TimerApp from "@/containers/Practice/TimerApp/TimerApp";
 
 const page = () => {
   return (
     <div>
-      <ProgressBar />
+      <TimerApp />
     </div>
   );
 };

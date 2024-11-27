@@ -25,9 +25,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/containers/JsCafe/TypeAheadSearch/TypeAheadSearch.jsx",
-    "src/components/JsCafe/TypeAheadSearch/useFetchPromise.js"
+    "**/*.js",
+    "**/*.jsx",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
