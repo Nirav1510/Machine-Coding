@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import RatingStar from "../../components/Practice/RatingStar/RatingStar";
+import RatingStar from "../../../components/Practice/RatingStar/RatingStar";
 
 const RatingStarApp = () => {
   const handleRatingChange = (rating) => {
