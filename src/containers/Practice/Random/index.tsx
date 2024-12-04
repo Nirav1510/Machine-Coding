@@ -1,8 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useLayoutEffect } from "react";
 
 const Child = ({ count }: any) => {
+  // useLayoutEffect(() => {
+  //   console.log("child 1 useLayoutEffect");
+  // });
+
   // useEffect(() => {
   //   console.log("child 1");
   // });
@@ -11,19 +15,31 @@ const Child = ({ count }: any) => {
   //   console.log("child 2");
   // });
 
+  useLayoutEffect(() => {
+    console.log("child mount useLayoutEffect", count);
+
+    return () => {
+      console.log("child unmount useLayoutEffect", count);
+    };
+  }, [count]);
+
   useEffect(() => {
     console.log("child mount", count);
 
     return () => {
       console.log("child unmount", count);
     };
-  }, []);
+  }, [count]);
 
   return <div className='text-2xl text-blue-400'>Child</div>;
 };
 
 const Random = () => {
   const [count, setCount] = useState(0);
+
+  // useEffect(() => {
+  //   console.log("parent useLayoutEffect");
+  // });
 
   // useEffect(() => {
   //   console.log("parent");
