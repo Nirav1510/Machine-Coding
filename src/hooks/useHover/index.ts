@@ -4,6 +4,7 @@ import { Ref, useRef, useState, useCallback } from "react";
 
 const useHover = <T extends HTMLElement>(): [Ref<T>, boolean] => {
   const ref = useRef<T>();
+
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const handleMouseEnter = useCallback(() => setIsHovered(true), []);
