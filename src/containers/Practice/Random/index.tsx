@@ -15,13 +15,13 @@ const Child = ({ count }: any) => {
   //   console.log("child 2");
   // });
 
-  useLayoutEffect(() => {
-    console.log("child mount useLayoutEffect", count);
+  // useLayoutEffect(() => {
+  //   console.log("child mount useLayoutEffect", count);
 
-    return () => {
-      console.log("child unmount useLayoutEffect", count);
-    };
-  }, [count]);
+  //   return () => {
+  //     console.log("child unmount useLayoutEffect", count);
+  //   };
+  // }, [count]);
 
   useEffect(() => {
     console.log("child mount", count);
@@ -29,7 +29,7 @@ const Child = ({ count }: any) => {
     return () => {
       console.log("child unmount", count);
     };
-  }, [count]);
+  }, []);
 
   return <div className='text-2xl text-blue-400'>Child</div>;
 };
