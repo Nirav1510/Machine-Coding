@@ -2,11 +2,7 @@ import React from "react";
 import Random from "@/containers/Practice/Random";
 
 const page = () => {
-  return (
-    <div>
-      <Random />
-    </div>
-  );
+  return <Random />;
 };
 
 export default page;
