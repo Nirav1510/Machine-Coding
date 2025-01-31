@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 const useOutsideClick = (callback: () => void) => {
-  const ref = useRef<HTMLDivElement>(null);
+	const ref = useRef<HTMLDivElement>(null);
 
-  const handleChange = (e: any) => {
-    if (ref.current && !ref.current.contains(e.target as Node)) {
-      callback();
-    }
-  };
+	const handleChange = (e: any) => {
+		if (ref.current && !ref.current.contains(e.target as Node)) {
+			callback();
+		}
+	};
 
-  useEffect(() => {
-    document.addEventListener("click", handleChange);
+	useEffect(() => {
+		document.addEventListener('click', handleChange);
 
-    return () => {
-      document.removeEventListener("click", handleChange);
-    };
-  }, []);
+		return () => {
+			document.removeEventListener('click', handleChange);
+		};
+	}, []);
 
-  return ref;
+	return ref;
 };
 
 export default useOutsideClick;

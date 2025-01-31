@@ -1,8 +1,8 @@
-import React from "react";
-import Random from "@/containers/Practice/Random";
+import React from 'react';
+import Random from '@/containers/Practice/Random';
 
 const page = () => {
-  return <Random />;
+	return <Random />;
 };
 
 export default page;
