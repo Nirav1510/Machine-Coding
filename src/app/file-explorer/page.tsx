@@ -1,4 +1,4 @@
-import FileExplorer from '@/containers/DEShaw/FileExplorer/FileExplorer';
+import FileExplorer from '@/containers/FileExplorer/FileExplorer';
 
 const page: React.FC = () => {
 	return <FileExplorer />;
