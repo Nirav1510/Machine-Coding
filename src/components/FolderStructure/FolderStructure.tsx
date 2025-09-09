@@ -27,52 +27,38 @@ const FolderStructure: React.FC<FolderStructureProps> = ({
 	addFileToFolder,
 	addFolderToFolder,
 }) => {
-	const renderTree = (items: FolderItem) => {
-		return items.items.map((item) => {
-			if (item.isFolder) {
-				return (
-					<div key={item.id} className='ml-[20px]'>
-						<div className='flex items-center'>
-							<div onClick={() => toggleFolder(item.id)} className='text-red-400'>
-								{item.isOpen ? '[-]' : '[+]'} {item.name}
-							</div>
+	const renderTree = (folder: FolderItem) => {
+		if (!folder) return null;
 
-							<button onClick={() => deleteFolder(item.id)} className='ml-5 mt-1.5'>
-								[--] Delete Folder
-							</button>
+		if (folder.isFolder) {
+			return (
+				<div key={folder.id} className='ml-5'>
+					<div className='flex items-center cursor-pointer'>
+						<div onClick={() => toggleFolder(folder.id)} className='text-blue-600'>
+							{folder.isOpen ? '[-]' : '[+]'} {folder.name}
 						</div>
 
-						{item.isOpen && (
-							<div>
-								{renderTree(item)}
-
-								<div className='flex flex-wrap'>
-									<button onClick={() => addFileToFolder(item.id)} className='ml-5 mt-1.5'>
-										[+] Add File
-									</button>
-
-									<button onClick={() => addFolderToFolder(item.id)} className='ml-5 mt-1.5'>
-										[+] Add Folder
-									</button>
-								</div>
-							</div>
-						)}
+						<div className='ml-5 flex gap-3 text-red-400'>
+							<button onClick={() => deleteFolder(folder.id)}>[--] Delete Folder</button>
+							<button onClick={() => addFileToFolder(folder.id)}>[+] Add File</button>
+							<button onClick={() => addFolderToFolder(folder.id)}>[++] Add Folder</button>
+						</div>
 					</div>
-				);
-			} else {
-				return (
-					item.name && (
-						<div key={item.id} className='ml-[20px] text-blue-400'>
-							{item.name}
 
-							<button onClick={() => deleteFile(item.id)} className='ml-5 mt-1.5 text-black'>
-								[--] Delete File
-							</button>
-						</div>
-					)
-				);
-			}
-		});
+					{folder.isOpen && folder.items.map((child: FolderItem) => renderTree(child))}
+				</div>
+			);
+		}
+
+		return (
+			<div key={folder.id} className='ml-6 flex items-center'>
+				<span className='text-blue-600'>{folder.name}</span>
+
+				<button onClick={() => deleteFile(folder.id)} className='ml-3 text-red-400'>
+					[-] Delete File
+				</button>
+			</div>
+		);
 	};
 
 	return <div>{renderTree(items)}</div>;
