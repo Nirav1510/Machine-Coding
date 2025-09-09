@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { initialStructure } from './constant';
 import FolderStructure from '@/components/FolderStructure/FolderStructure';
 
-type Folder = {
+export type Folder = {
 	id: string;
 	name: string;
 	isFolder: boolean;
@@ -13,11 +13,11 @@ type Folder = {
 };
 
 const FileExplorer: React.FC = () => {
-	const [folders, setFolders] = useState<Folder>(initialStructure);
+	const [folders, setFolders] = useState<Folder[]>(initialStructure as Folder[]);
 
 	const toggleFolder = (folderId: string) => {
 		const toggleRecursive = (folder: Folder): Folder => {
-			if (folder.id === folderId) {
+			if (folderId === folder.id) {
 				return { ...folder, isOpen: !folder.isOpen };
 			}
 
@@ -31,7 +31,7 @@ const FileExplorer: React.FC = () => {
 			return folder;
 		};
 
-		setFolders(toggleRecursive(folders));
+		setFolders(folders.map(toggleRecursive));
 	};
 
 	const addFileToFolder = (folderId: string) => {
@@ -46,24 +46,17 @@ const FileExplorer: React.FC = () => {
 					isFolder: false,
 					items: [],
 				};
-
-				return {
-					...folder,
-					items: [...folder.items, newFile],
-				};
+				return { ...folder, items: [...folder.items, newFile] };
 			}
 
 			if (folder.isFolder) {
-				return {
-					...folder,
-					items: folder.items.map(addFileRecursive),
-				};
+				return { ...folder, items: folder.items.map(addFileRecursive) };
 			}
 
 			return folder;
 		};
 
-		setFolders(addFileRecursive(folders));
+		setFolders(folders.map(addFileRecursive));
 	};
 
 	const addFolderToFolder = (folderId: string) => {
@@ -76,32 +69,25 @@ const FileExplorer: React.FC = () => {
 					id: Date.now().toString(),
 					name: folderName,
 					isFolder: true,
+					isOpen: false,
 					items: [],
 				};
-
-				return {
-					...folder,
-					items: [...folder.items, newFolder],
-				};
+				return { ...folder, items: [...folder.items, newFolder] };
 			}
 
 			if (folder.isFolder) {
-				return {
-					...folder,
-					items: folder.items.map(addFolderRecursive),
-				};
+				return { ...folder, items: folder.items.map(addFolderRecursive) };
 			}
 
 			return folder;
 		};
 
-		setFolders(addFolderRecursive(folders));
+		setFolders(folders.map(addFolderRecursive));
 	};
 
 	const deleteFile = (folderId: string) => {
-		const deleteFileRecursive = (folder: Folder | null): Folder | null => {
-			if (!folder) return null;
-			if (folder.id === folderId) {
+		const deleteFileRecursive = (folder: Folder): Folder | null => {
+			if (folder.id === folderId && !folder.isFolder) {
 				alert(`File "${folder.name}" deleted`);
 				return null;
 			}
@@ -116,13 +102,12 @@ const FileExplorer: React.FC = () => {
 			return folder;
 		};
 
-		setFolders(deleteFileRecursive(folders) || folders);
+		setFolders(folders.map(deleteFileRecursive).filter(Boolean) as Folder[]);
 	};
 
 	const deleteFolder = (folderId: string) => {
-		const deleteFolderRecursive = (folder: Folder | null): Folder | null => {
-			if (!folder) return null;
-			if (folder.id === folderId) {
+		const deleteFolderRecursive = (folder: Folder): Folder | null => {
+			if (folder.id === folderId && folder.isFolder) {
 				console.log(`Folder "${folder.name}" deleted`);
 				return null;
 			}
@@ -137,12 +122,50 @@ const FileExplorer: React.FC = () => {
 			return folder;
 		};
 
-		setFolders(deleteFolderRecursive(folders) || folders);
+		setFolders(folders.map(deleteFolderRecursive).filter(Boolean) as Folder[]);
+	};
+
+	const addRootFolder = () => {
+		const name = prompt('Enter root folder name');
+		if (!name) return;
+
+		const newFolder: Folder = {
+			id: Date.now().toString(),
+			name,
+			isFolder: true,
+			isOpen: false,
+			items: [],
+		};
+
+		setFolders([...folders, newFolder]);
+	};
+
+	const addRootFile = () => {
+		const name = prompt('Enter root file name');
+		if (!name) return;
+
+		const newFile: Folder = {
+			id: Date.now().toString(),
+			name,
+			isFolder: false,
+			items: [],
+		};
+
+		setFolders([...folders, newFile]);
 	};
 
 	return (
 		<div>
 			<div className='flex justify-center items-center font-bold text-xl'>Folder Structure</div>
+
+			<div className='mb-4 flex gap-4'>
+				<button onClick={addRootFolder} className='text-green-600'>
+					[+] Add Root Folder
+				</button>
+				<button onClick={addRootFile} className='text-green-600'>
+					[+] Add Root File
+				</button>
+			</div>
 
 			<FolderStructure
 				items={folders}
